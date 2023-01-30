@@ -16,13 +16,15 @@
 package main
 
 import (
+	"github.com/cloudwego/kitex/server"
 	"log"
+	"net"
 
 	api "github.com/cloudwego/kitex-examples/hello/kitex_gen/api/hello"
 )
 
 func main() {
-	svr := api.NewServer(new(HelloImpl))
+	svr := api.NewServer(new(HelloImpl), server.WithServiceAddr(&net.TCPAddr{IP: net.IPv4(127, 0, 0, 1), Port: 8888}))
 
 	err := svr.Run()
 	if err != nil {
